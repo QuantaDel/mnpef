@@ -5,25 +5,27 @@
 Write your code in this editor and press "Run" button to execute it.
 
 '''
-
 import streamlit as st
 import time
 
-# Configuração da página para navegação em dispositivos móveis
+# Configuração da página para dispositivos móveis
 st.set_page_config(
     page_title="Operação Sinal de Prata - Desafio Cripto",
     page_icon="🔒",
     layout="centered"
 )
 
-# Estilização CSS personalizada para estética de Cibersegurança
-st.markdown("""
+# Estilização CSS
+st.markdown(
+    """
     <style>
     .main { background-color: #0e1117; }
     h1 { color: #f39c12; text-align: center; }
     .stButton>button { width: 100%; background-color: #f39c12; color: black; font-weight: bold; }
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 st.title("🔒 OPERAÇÃO SINAL DE PRATA")
 st.markdown("<p style='text-align: center; color: #aaa;'>Módulo de Teste de Vulnerabilidade de Senhas</p>", unsafe_allow_html=True)
@@ -49,10 +51,9 @@ if st.session_state.fase == 1:
         else:
             st.warning("Digite uma senha válida primeiro.")
 
-    # Se a senha já foi testada nesta fase, exibe o resultado e o botão de avançar
     if 'res_s1' in st.session_state:
         st.error(f"❌ SENHA QUEBRADA EM 0.4 SEGUNDOS! A sua senha é: **{st.session_state.res_s1}**")
-        st.info("💡 **O erro clássico:** Substituições simples mantêm a frequência das letras da língua original.")
+        st.info("💡 O erro clássico: Substituições simples mantêm a frequência das letras da língua original.")
         
         if st.button("Avançar para o Nível 2 ➔", key="next_to_2"):
             st.session_state.fase = 2
@@ -88,7 +89,7 @@ elif st.session_state.fase == 2:
 
     if 'res_s2' in st.session_state:
         st.error(f"❌ SENHA QUEBRADA EM 3.2 SEGUNDOS! A sua senha é: **{st.session_state.res_s2}**")
-        st.info("💡 **O erro clássico:** Se o canal de transmissão da chave for interceptado, o segredo desmorona.")
+        st.info("💡 O erro clássico: Se o canal de transmissão da chave for interceptado, o segredo desmorona.")
         
         if st.button("Avançar para o Nível 3 (Segurança Bancária) ➔", key="next_to_3"):
             st.session_state.fase = 3
@@ -130,20 +131,12 @@ elif st.session_state.fase == 3:
         st.error(f"💥 SISTEMA INVASOR VENCEU! Sua senha inquebrável é: **{st.session_state.res_s3}**")
         
         st.markdown("---")
-        st.warning("""
-        ### ⚠️ A Conclusão da Investigação
-        Todas as senhas baseadas puramente em **complexidade matemática** podem ser quebradas se o invasor possuir tempo e poder computacional suficientes.
-        
-        **Como garantir a segurança da informação se a matemática clássica sempre pode ser derrotada?**
-        *A resposta não está na Matemática... está na Física Quântica.*
-        """)
+        st.warning("⚠️ **A Conclusão da Investigação:**\nTodas as senhas baseadas puramente em **complexidade matemática** podem ser quebradas se o invasor possuir tempo e poder computacional suficientes.\n\n**Como garantir a segurança da informação se a matemática clássica sempre pode ser derrotada?**\n*A resposta não está na Matemática... está na Física Quântica.*")
         
         if st.button("🔄 Reiniciar Investigação", key="restart"):
-            # Limpa o estado para reiniciar do zero
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
-            """)
             
             if st.button("Reiniciar Investigação"):
                 st.session_state.fase = 1
