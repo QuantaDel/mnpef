@@ -15,7 +15,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Estilização CSS
+# Estilização CSS personalizada para estética de Cibersegurança
 st.markdown(
     """
     <style>
@@ -35,7 +35,7 @@ if 'fase' not in st.session_state:
     st.session_state.fase = 1
 
 # ---------------------------------------------------------
-# FASE 1: DESAFIO INICIAL (Cifra de Substituição)
+# FASE 1: DESAFIO INICIAL (Cifra de Substituição / César)
 # ---------------------------------------------------------
 if st.session_state.fase == 1:
     st.markdown("### Nível 1: Cifra de Substituição Simples")
@@ -53,14 +53,20 @@ if st.session_state.fase == 1:
 
     if 'res_s1' in st.session_state:
         st.error(f"❌ SENHA QUEBRADA EM 0.4 SEGUNDOS! A sua senha é: **{st.session_state.res_s1}**")
-        st.info("💡 O erro clássico: Substituições simples mantêm a frequência das letras da língua original.")
+        
+        # Explicação Didática do Nível 1
+        st.info("""
+        💡 **Diagnóstico de Segurança (Cifra de Substituição / César):**
+        * **Como o sistema quebrou:** O algoritmo usou **Análise de Frequência Estatística**. Na língua portuguesa, letras como 'A', 'E' e 'O' aparecem muito mais do que 'Z' ou 'X'.
+        * **A falha clássica:** Trocar letras por símbolos ou deslocar o alfabeto (ex: A vira C) **não esconde o padrão da linguagem humana**. O computador descobre o segredo em milissegundos contando as repetições.
+        """)
         
         if st.button("Avançar para o Nível 2 ➔", key="next_to_2"):
             st.session_state.fase = 2
             st.rerun()
 
 # ---------------------------------------------------------
-# FASE 2: CHAVE SIMÉTRICA REUTILIZADA
+# FASE 2: CHAVE SIMÉTRICA REUTILIZADA (Vigenère / XOR)
 # ---------------------------------------------------------
 elif st.session_state.fase == 2:
     st.markdown("### Nível 2: Criptografia por Chave Reutilizável")
@@ -89,54 +95,23 @@ elif st.session_state.fase == 2:
 
     if 'res_s2' in st.session_state:
         st.error(f"❌ SENHA QUEBRADA EM 3.2 SEGUNDOS! A sua senha é: **{st.session_state.res_s2}**")
-        st.info("💡 O erro clássico: Se o canal de transmissão da chave for interceptado, o segredo desmorona.")
+        
+        # Explicação Didática do Nível 2
+        st.info("""
+        💡 **Diagnóstico de Segurança (Chave Simétrica / Vigenère):**
+        * **Como o sistema quebrou:** O algoritmo utilizou detecção de **repetição de chave simétrica** e operações lógicas como a porta **XOR**.
+        * **A falha clássica:** Se a mesma chave secreta é reutilizada para cifrar várias mensagens ou transmitir dados pelo canal, uma espiã (Eva) que interceptar o fluxo consegue cancelar a chave matematicamente por força bruta e extrair o texto original.
+        """)
         
         if st.button("Avançar para o Nível 3 (Segurança Bancária) ➔", key="next_to_3"):
             st.session_state.fase = 3
             st.rerun()
 
 # ---------------------------------------------------------
-# FASE 3: RSA / MATEMÁTICA BANCÁRIA
+# FASE 3: CRIPTOGRAFIA ASSIMÉTRICA MODERNA (RSA)
 # ---------------------------------------------------------
 elif st.session_state.fase == 3:
-    st.markdown("### Nível 3: Criptografia Assimétrica Moderna (RSA / Bancos)")
-    st.write("Esta é a criptografia que protege o WhatsApp e transações bancárias. Crie a senha definitiva 'inquebrável'.")
-    
-    senha3 = st.text_input("Digite sua senha Nível 3:", type="password", key="input_s3")
-    
-    if st.button("Iniciar Teste de Invasão de Alta Complexidade", key="btn_s3"):
-        if senha3:
-            status = st.empty()
-            bar = st.progress(0)
-            
-            etapas = [
-                ("Iniciando algoritmo de fatoração de números primos...", 15, 1.5),
-                ("Mapeando par de chaves pública e privada...", 35, 1.5),
-                ("Simulando processamento massivo paralelo...", 60, 2),
-                ("Aplicando estimativa de Shor em ambiente quântico simulado...", 85, 2),
-                ("Finalizando extração da chave...", 100, 1)
-            ]
-            
-            for texto, pct, espera in etapas:
-                status.text(texto)
-                bar.progress(pct)
-                time.sleep(espera)
-                
-            status.empty()
-            st.session_state.res_s3 = senha3
-        else:
-            st.warning("Digite uma senha válida primeiro.")
-
-    if 'res_s3' in st.session_state:
-        st.error(f"💥 SISTEMA INVASOR VENCEU! Sua senha inquebrável é: **{st.session_state.res_s3}**")
-        
-        st.markdown("---")
-        st.warning("⚠️ **A Conclusão da Investigação:**\nTodas as senhas baseadas puramente em **complexidade matemática** podem ser quebradas se o invasor possuir tempo e poder computacional suficientes.\n\n**Como garantir a segurança da informação se a matemática clássica sempre pode ser derrotada?**\n*A resposta não está na Matemática... está na Física Quântica.*")
-        
-        if st.button("🔄 Reiniciar Investigação", key="restart"):
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
-            st.rerun()
+    st.
             
             if st.button("Reiniciar Investigação"):
                 st.session_state.fase = 1
