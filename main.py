@@ -111,8 +111,55 @@ elif st.session_state.fase == 2:
 # FASE 3: CRIPTOGRAFIA ASSIMÉTRICA MODERNA (RSA)
 # ---------------------------------------------------------
 elif st.session_state.fase == 3:
-    st.
+    st.markdown("### Nível 3: Criptografia Assimétrica Moderna (RSA / Bancos)")
+    st.write("Esta é a criptografia que protege o WhatsApp e transações bancárias. Crie a senha definitiva 'inquebrável'.")
+    
+    senha3 = st.text_input("Digite sua senha Nível 3:", type="password", key="input_s3")
+    
+    if st.button("Iniciar Teste de Invasão de Alta Complexidade", key="btn_s3"):
+        if senha3:
+            status = st.empty()
+            bar = st.progress(0)
             
-            if st.button("Reiniciar Investigação"):
-                st.session_state.fase = 1
-                st.rerun()
+            etapas = [
+                ("Iniciando algoritmo de fatoração de números primos...", 15, 1.5),
+                ("Mapeando par de chaves pública e privada...", 35, 1.5),
+                ("Simulando processamento massivo paralelo...", 60, 2),
+                ("Aplicando estimativa de Shor em ambiente quântico simulado...", 85, 2),
+                ("Finalizando extração da chave...", 100, 1)
+            ]
+            
+            for texto, pct, espera in etapas:
+                status.text(texto)
+                bar.progress(pct)
+                time.sleep(espera)
+                
+            status.empty()
+            st.session_state.res_s3 = senha3
+        else:
+            st.warning("Digite uma senha válida primeiro.")
+
+    if 'res_s3' in st.session_state:
+        st.error(f"💥 SISTEMA INVASOR VENCEU! Sua senha inquebrável é: **{st.session_state.res_s3}**")
+        
+        # Explicação Didática do Nível 3
+        st.info("""
+        💡 **Diagnóstico de Segurança (Criptografia Assimétrica / RSA):**
+        * **Como o sistema quebrou:** O RSA baseia sua segurança na **dificuldade de fatorar a multiplicação de dois números primos gigantescos**.
+        * **A falha conceitual:** A segurança do RSA é baseada em *tempo de processamento*, e não em uma lei inviolável da natureza. Com o avanço de supercomputadores ou a chegada dos **Computadores Quânticos (Algoritmo de Shor)**, o que levaria bilhões de anos para ser fatorado pode ser resolvido em poucos minutos.
+        """)
+        
+        st.markdown("---")
+        st.warning("""
+        ### ⚠️ A Conclusão da Investigação
+        Todas as senhas baseadas puramente em **complexidade matemática** podem ser quebradas se o invasor possuir tempo e poder computacional suficientes.
+        
+        **Como garantir a segurança da informação se a matemática clássica sempre pode ser derrotada?**
+        
+        *A resposta não está na Matemática... está na **Física Quântica**.*
+        """)
+        
+        if st.button("🔄 Reiniciar Investigação", key="restart"):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
